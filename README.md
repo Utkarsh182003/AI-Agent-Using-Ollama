@@ -97,8 +97,8 @@ The **Multi-Agent AI App with Ollama** is a Python-based application leveraging 
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/AIAnytime/AI-Agents-from-Scratch-using-Ollama
-   cd AI-Agents-from-Scratch-using-Ollama
+   git clone https://github.com/Utkarsh182003/AI-Agent-Using-Ollama.git
+   cd AI-Agent-Using-Ollama
    ```
 
 2. **Create a Virtual Environment**
