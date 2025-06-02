@@ -20,7 +20,7 @@ def main():
 
     agent_manager = AgentManager(max_retries=2, verbose=True)
 
-    if task == "Summarize Medical Text":
+    if task == "Summarize Text":
         summarize_section(agent_manager)
     elif task == "Write and Refine Research Article":
         write_and_refine_article_section(agent_manager)
