@@ -1,6 +1,6 @@
-# MedAI Agent Suite
+# Multi-Agent AI System
 
-A modular, multi-agent AI system for automating and validating medical research article writing, summarization, and data sanitization using LLaMA models via Ollama, with a user-friendly Streamlit interface.
+A modular, multi-agent AI system for text summarization, research article writing, and data sanitization using LLaMA models via Groq, with a user-friendly Streamlit interface.
 
 ---
 
@@ -22,36 +22,36 @@ A modular, multi-agent AI system for automating and validating medical research 
 
 ## Overview
 
-**MedAI Agent Suite** is an AI-powered application designed to assist researchers, students, and medical professionals in generating, refining, validating, and sanitizing medical research articles and data. It leverages the LLaMA language model (via Ollama) and a modular agent-based architecture to ensure high-quality, privacy-compliant outputs.
+This **Multi-Agent AI System** is designed to assist users in generating summaries, writing research articles, and sanitizing sensitive data. It leverages the Groq API and implements a modular agent-based architecture to ensure high-quality outputs with validation at each step.
 
 ---
 
 ## Features
 
-- **Summarize Medical Text:**  
-  Generate concise summaries of lengthy medical documents, with automated quality validation.
+- **Text Summarization:**  
+  Generate concise summaries of any text with automated quality validation.
 
-- **Write & Refine Research Articles:**  
-  Draft research articles from a topic or outline, refine for clarity and structure, and validate for academic standards.
+- **Research Article Writing & Refinement:**  
+  Draft research articles from topics or outlines, refine for clarity and structure, and validate for academic standards.
 
-- **Sanitize Medical Data:**  
-  Automatically remove Protected Health Information (PHI) from medical data, with validation to ensure privacy compliance.
+- **Data Sanitization:**  
+  Automatically identify and remove sensitive information from data, with validation to ensure privacy compliance.
 
 - **Validator Agents:**  
-  Each main task is paired with a validator agent that reviews and rates the output for quality, accuracy, or privacy.
+  Each main task is paired with a validator agent that reviews and rates the output for quality and accuracy.
 
 - **User-Friendly Interface:**  
   Built with Streamlit for easy, interactive use.
 
 - **Robust Logging:**  
-  All actions and errors are logged for transparency and debugging.
+  Comprehensive logging system for transparency and debugging.
 
 ---
 
 ## Architecture
 
 - **Streamlit Frontend:**  
-  Provides a simple web interface for user interaction.
+  Provides an intuitive web interface for user interaction.
 
 - **Agent Manager:**  
   Coordinates the execution of main and validator agents for each task.
@@ -62,21 +62,10 @@ A modular, multi-agent AI system for automating and validating medical research 
   - *SanitizeDataTool* & *SanitizeDataValidatorAgent*
 
 - **LLM Integration:**  
-  All agents communicate with the LLaMA model via the Ollama API.
+  All agents communicate with language models via the Groq API.
 
 - **Logging:**  
   Uses Loguru for structured logging (see `utils/logger.py`).
-
----
-
-## Workflow
-
-1. **User selects a task** (summarize, write/refine, or sanitize) in the Streamlit app.
-2. **User provides input** (text, topic, or data).
-3. **Main agent processes the input** using the LLaMA model.
-4. **Validator agent reviews the output** for quality, accuracy, or privacy.
-5. **Results and validation feedback** are displayed to the user.
-6. **All actions are logged** for monitoring and debugging.
 
 ---
 
@@ -85,15 +74,15 @@ A modular, multi-agent AI system for automating and validating medical research 
 ### Prerequisites
 
 - Python 3.8+
-- [Ollama](https://ollama.com/) installed and running with LLaMA model
+- Groq API key
 - pip
 
 ### Steps
 
 1. **Clone the repository:**
    ```sh
-   git clone https://github.com/yourusername/medai-agent-suite.git
-   cd medai-agent-suite
+   git clone https://github.com/yourusername/multi-agent-ai-system.git
+   cd multi-agent-ai-system
    ```
 
 2. **Install dependencies:**
@@ -101,7 +90,11 @@ A modular, multi-agent AI system for automating and validating medical research 
    pip install -r requirements.txt
    ```
 
-3. **Start Ollama and ensure the LLaMA model is available.**
+3. **Set up environment variables:**
+   Create a `.env` file with:
+   ```
+   GROQ_API_KEY=your_api_key_here
+   ```
 
 4. **Run the Streamlit app:**
    ```sh
@@ -112,47 +105,55 @@ A modular, multi-agent AI system for automating and validating medical research 
 
 ## Usage
 
-- Open your browser to the Streamlit URL (usually `http://localhost:8501`).
-- Select a task from the sidebar.
-- Enter the required input (text, topic, or data).
-- View the generated output and validation feedback.
+1. Open your browser to the Streamlit URL (usually `http://localhost:8501`).
+2. Select a task from the sidebar:
+   - Summarize Text
+   - Write and Refine Research Article
+   - Sanitize Data
+3. Enter the required input
+4. Click the corresponding button to process
+5. View the generated output and validation feedback
 
 ---
 
 ## Agents
 
-- **SummarizeTool:** Summarizes medical text.
-- **SummarizeValidatorAgent:** Validates summary quality.
-- **WriteArticleTool:** Drafts research articles.
-- **WriteArticleValidatorAgent:** Validates article structure and academic quality.
-- **SanitizeDataTool:** Removes PHI from data.
-- **SanitizeDataValidatorAgent:** Validates data sanitization.
+- **SummarizeTool:** Creates concise summaries of any text.
+- **SummarizeValidatorAgent:** Validates summary quality and accuracy.
+- **WriteArticleTool:** Drafts research articles from topics.
+- **WriteArticleValidatorAgent:** Validates article structure and quality.
+- **SanitizeDataTool:** Removes sensitive information from data.
+- **SanitizeDataValidatorAgent:** Validates sanitization completeness.
 
-Each agent is modular and can be extended or replaced as needed.
+Each agent is modular and can be extended or modified as needed.
 
 ---
 
 ## Logging
 
-- Logs are stored in the `logs/` directory.
-- Logging is handled via Loguru for easy debugging and monitoring.
+- Logs are stored in the `logs/` directory
+- Comprehensive logging via Loguru for debugging and monitoring
+- Tracks all agent interactions and potential errors
 
 ---
 
 ## Customization
 
 - **Add new agents:**  
-  Create a new agent class in the `agents/` directory and register it in the agent manager.
-- **Change LLM model:**  
-  Update the model used in the Ollama API calls in `agent_base.py`.
+  Create new agent classes in the `agents/` directory and register them in the agent manager.
 - **Modify prompts:**  
-  Edit the prompt templates in each agent for different behaviors or domains.
+  Edit the prompt templates in each agent for different behaviors or requirements.
+- **Configure API settings:**  
+  Adjust API parameters in the configuration files for different models or requirements.
 
 ---
 
 ## Contributing
 
-Contributions are welcome! Please open issues or submit pull requests for improvements or new features.
+Contributions are welcome! Please feel free to:
+- Open issues for bugs or feature requests
+- Submit pull requests for improvements
+- Suggest new agent types or functionalities
 
 ---
 
