@@ -6,11 +6,11 @@ class SanitizeDataTool(AgentBase):
 
     def execute(self, medical_data):
         messages = [
-            {"role": "system", "content": "You are an AI assistant that sanitizes medical data by removing Protected Health Information (PHI)."},
+            {"role": "system", "content": "You are an AI assistant that sanitizes data by removing unnecesaary information or foul language."},
             {
                 "role": "user",
                 "content": (
-                    "Remove all PHI from the following data:\n\n"
+                    "Remove all unnecesaary information or foul language from the following data:\n\n"
                     f"{medical_data}\n\nSanitized Data:"
                 )
             }

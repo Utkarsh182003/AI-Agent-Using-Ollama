@@ -1,5 +1,5 @@
-ollama
 streamlit
 pandas
 loguru
 python-dotenv
+requests

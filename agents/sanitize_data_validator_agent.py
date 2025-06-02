@@ -5,10 +5,10 @@ class SanitizeDataValidatorAgent(AgentBase):
         super().__init__(name="SanitizeDataValidatorAgent", max_retries=max_retries, verbose=verbose)
 
     def execute(self, original_data, sanitized_data):
-        system_message = "You are an AI assistant that validates the sanitization of medical data by checking for the removal of Protected Health Information (PHI)."
+        system_message = "You are an AI assistant that validates the sanitization of data by checking for the removal of unnecesaary information or foul language."
         user_content = (
-            "Given the original data and the sanitized data, verify that all PHI has been removed.\n"
-            "List any remaining PHI in the sanitized data and rate the sanitization process on a scale of 1 to 5, where 5 indicates complete sanitization.\n\n"
+            "Given the original data and the sanitized data, verify that all unnecesaary information or foul language has been removed.\n"
+            "List any remaining unnecesaary information or foul language in the sanitized data and rate the sanitization process on a scale of 1 to 5, where 5 indicates complete sanitization.\n\n"
             f"Original Data:\n{original_data}\n\n"
             f"Sanitized Data:\n{sanitized_data}\n\n"
             "Validation:"

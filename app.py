@@ -13,9 +13,9 @@ def main():
 
     st.sidebar.title("Select Task")
     task = st.sidebar.selectbox("Choose a task:", [
-        "Summarize Medical Text",
+        "Summarize Text",
         "Write and Refine Research Article",
-        "Sanitize Medical Data (PHI)"
+        "Sanitize Data"
     ])
 
     agent_manager = AgentManager(max_retries=2, verbose=True)
@@ -24,12 +24,12 @@ def main():
         summarize_section(agent_manager)
     elif task == "Write and Refine Research Article":
         write_and_refine_article_section(agent_manager)
-    elif task == "Sanitize Medical Data (PHI)":
+    elif task == "Sanitize Data":
         sanitize_data_section(agent_manager)
 
 def summarize_section(agent_manager):
-    st.header("Summarize Medical Text")
-    text = st.text_area("Enter medical text to summarize:", height=200)
+    st.header("Summarize Text")
+    text = st.text_area("Enter text to summarize:", height=200)
     if st.button("Summarize"):
         if text:
             main_agent = agent_manager.get_agent("summarize")
@@ -96,8 +96,8 @@ def write_and_refine_article_section(agent_manager):
             st.warning("Please enter a topic for the research article.")
 
 def sanitize_data_section(agent_manager):
-    st.header("Sanitize Medical Data (PHI)")
-    medical_data = st.text_area("Enter medical data to sanitize:", height=200)
+    st.header("Sanitize Data")
+    medical_data = st.text_area("Enter data to sanitize:", height=200)
     if st.button("Sanitize Data"):
         if medical_data:
             main_agent = agent_manager.get_agent("sanitize_data")
@@ -121,7 +121,7 @@ def sanitize_data_section(agent_manager):
                     st.error(f"Validation Error: {e}")
                     logger.error(f"SanitizeDataValidatorAgent Error: {e}")
         else:
-            st.warning("Please enter medical data to sanitize.")
+            st.warning("Please enter data to sanitize.")
 
 if __name__ == "__main__":
     main()
