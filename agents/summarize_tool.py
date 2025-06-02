@@ -1,5 +1,3 @@
-# agents/summarize_agent.py
-
 from .agent_base import AgentBase
 
 class SummarizeTool(AgentBase):

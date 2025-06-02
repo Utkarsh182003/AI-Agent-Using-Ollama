@@ -1,5 +1,3 @@
-# agents/agent_base.py
-
 import ollama
 from abc import ABC, abstractmethod
 from loguru import logger
@@ -35,13 +33,13 @@ class AgentBase(ABC):
                     for msg in messages:
                         logger.debug(f"  {msg['role']}: {msg['content']}")
                 
-                # Call the Ollama chat API
+                # Calls the Ollama chat API
                 response = ollama.chat(
-                    model='llama3.2:3b',  # Updated model name
+                    model='llama3.2:3b',  
                     messages=messages
                 )
                 
-                # Parse the response to extract the text content
+                # Parses the response to extract the text content
                 reply = response['message']['content']
                 
                 if self.verbose:

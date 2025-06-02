@@ -1,5 +1,3 @@
-# agents/sanitize_data_validator_agent.py
-
 from .agent_base import AgentBase
 
 class SanitizeDataValidatorAgent(AgentBase):

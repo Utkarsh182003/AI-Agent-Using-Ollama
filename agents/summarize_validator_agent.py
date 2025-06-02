@@ -1,5 +1,3 @@
-# agents/summarize_validator_agent.py
-
 from .agent_base import AgentBase
 
 class SummarizeValidatorAgent(AgentBase):

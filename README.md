@@ -1,198 +1,163 @@
-# Multi-Agent AI App with Ollama
+# MedAI Agent Suite
+
+A modular, multi-agent AI system for automating and validating medical research article writing, summarization, and data sanitization using LLaMA models via Ollama, with a user-friendly Streamlit interface.
+
+---
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Features](#features)
+- [Architecture](#architecture)
+- [Workflow](#workflow)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Agents](#agents)
+- [Logging](#logging)
+- [Customization](#customization)
+- [Contributing](#contributing)
+- [License](#license)
+
+---
 
 ## Overview
 
-The **Multi-Agent AI App with Ollama** is a Python-based application leveraging the open-source LLaMA 3.2:3b model via Ollama to perform specialized tasks through a collaborative multi-agent architecture. Built with Streamlit for an intuitive web interface, this system includes agents for summarizing medical texts, writing research articles, and sanitizing medical data (Protected Health Information - PHI). Each primary agent is paired with a corresponding validator agent to ensure the quality and accuracy of the outputs.
+**MedAI Agent Suite** is an AI-powered application designed to assist researchers, students, and medical professionals in generating, refining, validating, and sanitizing medical research articles and data. It leverages the LLaMA language model (via Ollama) and a modular agent-based architecture to ensure high-quality, privacy-compliant outputs.
+
+---
 
 ## Features
 
-- **Summarize Medical Texts:** Generate concise summaries of lengthy medical documents.
-- **Write and Refine Research Articles:** Create detailed research articles based on a given topic and optional outline, followed by refinement for enhanced quality.
-- **Sanitize Medical Data (PHI):** Remove sensitive health information from medical datasets to ensure privacy compliance.
-- **Quality Validation:** Each primary task is accompanied by a validator agent to assess and ensure output quality.
-- **Robust Logging:** Comprehensive logging for monitoring and debugging purposes.
-- **User-Friendly Interface:** Streamlit-based web app for easy interaction and task management.
+- **Summarize Medical Text:**  
+  Generate concise summaries of lengthy medical documents, with automated quality validation.
+
+- **Write & Refine Research Articles:**  
+  Draft research articles from a topic or outline, refine for clarity and structure, and validate for academic standards.
+
+- **Sanitize Medical Data:**  
+  Automatically remove Protected Health Information (PHI) from medical data, with validation to ensure privacy compliance.
+
+- **Validator Agents:**  
+  Each main task is paired with a validator agent that reviews and rates the output for quality, accuracy, or privacy.
+
+- **User-Friendly Interface:**  
+  Built with Streamlit for easy, interactive use.
+
+- **Robust Logging:**  
+  All actions and errors are logged for transparency and debugging.
+
+---
 
 ## Architecture
 
-```
-+-------------------+
-|       User        |
-+---------+---------+
-          |
-          | Interacts via
-          v
-+---------+---------+
-|    Streamlit App  |
-+---------+---------+
-          |
-          | Sends task requests to
-          v
-+---------+---------+
-|  Agent Manager    |
-+---------+---------+
-          |
-          +---------------------------------------------+
-          |                      |                      |
-          v                      v                      v
-+---------+---------+  +---------+---------+  +---------+---------+
-|  Summarize Agent  |  |  Write Article    |  |  Sanitize Data    |
-|  (Generates summary)| |  (Generates draft)| |  (Removes PHI)    |
-+---------+---------+  +---------+---------+  +---------+---------+
-          |                      |                      |
-          v                      v                      v
-+---------+---------+  +---------+---------+  +---------+---------+
-|Summarize Validator|  | Refiner Agent      |  |Sanitize Validator |
-|      Agent        |  |  (Enhances draft)  |  |      Agent        |
-+---------+---------+  +---------+----------+ +----------+--------+
-          |                      |                      |
-          |                      |                      |
-          +-----------+----------+-----------+----------+
-                      |                      |
-                      v                      v
-                +-----+-------+        +-----+-------+
-                |   Logger    |        |   Logger    |
-                +-------------+        +-------------+
-```
+- **Streamlit Frontend:**  
+  Provides a simple web interface for user interaction.
 
-### Components Breakdown
+- **Agent Manager:**  
+  Coordinates the execution of main and validator agents for each task.
 
-1. **User**
-   - Interacts with the system via the Streamlit web interface.
-   - Selects tasks and provides input data.
+- **Agents:**  
+  - *SummarizeTool* & *SummarizeValidatorAgent*
+  - *WriteArticleTool* & *WriteArticleValidatorAgent*
+  - *SanitizeDataTool* & *SanitizeDataValidatorAgent*
 
-2. **Streamlit App**
-   - Frontend interface for user interaction.
-   - Sends user requests to the Agent Manager.
-   - Displays results and validation feedback.
+- **LLM Integration:**  
+  All agents communicate with the LLaMA model via the Ollama API.
 
-3. **Agent Manager**
-   - Central coordinator for all agents.
-   - Delegates tasks to appropriate main agents and their corresponding validator agents.
+- **Logging:**  
+  Uses Loguru for structured logging (see `utils/logger.py`).
 
-4. **Main Agents**
-   - **Summarize Agent:** Generates summaries of medical texts.
-   - **Write Article Agent:** Creates drafts of research articles.
-   - **Sanitize Data Agent:** Removes PHI from medical data.
+---
 
-5. **Validator Agents**
-   - **Summarize Validator Agent:** Assesses the quality of summaries.
-   - **Refiner Agent:** Enhances drafts for better quality.
-   - **Sanitize Validator Agent:** Ensures all PHI has been removed.
+## Workflow
 
-6. **Logger**
-   - Records all interactions, inputs, outputs, and errors.
-   - Facilitates monitoring and debugging.
+1. **User selects a task** (summarize, write/refine, or sanitize) in the Streamlit app.
+2. **User provides input** (text, topic, or data).
+3. **Main agent processes the input** using the LLaMA model.
+4. **Validator agent reviews the output** for quality, accuracy, or privacy.
+5. **Results and validation feedback** are displayed to the user.
+6. **All actions are logged** for monitoring and debugging.
+
+---
 
 ## Installation
 
 ### Prerequisites
 
-- **Python 3.7 or higher:** [Download Python](https://www.python.org/downloads/)
-- **Ollama Installed:** [Ollama Installation Guide](https://ollama.com/docs/installation)
-- **LLaMA 3.2:3b Model:** Ensure the `llama3.2:3b` model is available and correctly configured in Ollama.
+- Python 3.8+
+- [Ollama](https://ollama.com/) installed and running with LLaMA model
+- pip
 
 ### Steps
 
-1. **Clone the Repository**
-
-   ```bash
-   git clone https://github.com/Utkarsh182003/AI-Agent-Using-Ollama.git
-   cd AI-Agent-Using-Ollama
+1. **Clone the repository:**
+   ```sh
+   git clone https://github.com/yourusername/medai-agent-suite.git
+   cd medai-agent-suite
    ```
 
-2. **Create a Virtual Environment**
-
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
-
-3. **Install Dependencies**
-
-   Ensure the `requirements.txt` file includes all necessary packages.
-
-   ```bash
+2. **Install dependencies:**
+   ```sh
    pip install -r requirements.txt
    ```
 
-4. **Set Up Ollama and the LLaMA Model**
+3. **Start Ollama and ensure the LLaMA model is available.**
 
-   - **Install Ollama:** Follow the [Ollama Installation Guide](https://ollama.com) to install Ollama on your system.
-   - **Download and Configure LLaMA 3.2:3b Model:**
-     - Ensure that the `llama3.2:3b` model is downloaded and properly set up in Ollama.
-     - You can verify the model is available by running the test script or using the Ollama CLI.
-
-## Usage
-
-1. **Activate the Virtual Environment**
-
-   ```bash
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
-
-2. **Run the Streamlit App**
-
-   ```bash
+4. **Run the Streamlit app:**
+   ```sh
    streamlit run app.py
    ```
 
-3. **Access the App**
+---
 
-   Open the URL provided by Streamlit (usually `http://localhost:8501`) in your web browser.
+## Usage
 
-4. **Interact with the Tasks**
+- Open your browser to the Streamlit URL (usually `http://localhost:8501`).
+- Select a task from the sidebar.
+- Enter the required input (text, topic, or data).
+- View the generated output and validation feedback.
 
-   - **Summarize Medical Text:** Input medical texts to receive concise summaries.
-   - **Write and Refine Research Article:** Provide a topic and optional outline to generate and refine research articles.
-   - **Sanitize Medical Data (PHI):** Input medical data to remove sensitive information.
+---
 
 ## Agents
 
-### Main Agents
+- **SummarizeTool:** Summarizes medical text.
+- **SummarizeValidatorAgent:** Validates summary quality.
+- **WriteArticleTool:** Drafts research articles.
+- **WriteArticleValidatorAgent:** Validates article structure and academic quality.
+- **SanitizeDataTool:** Removes PHI from data.
+- **SanitizeDataValidatorAgent:** Validates data sanitization.
 
-- **Summarize Agent**
-  - **Function:** Generates summaries of provided medical texts.
-  - **Usage:** Input the text, and receive a concise summary.
+Each agent is modular and can be extended or replaced as needed.
 
-- **Write Article Agent**
-  - **Function:** Creates drafts of research articles based on a topic and optional outline.
-  - **Usage:** Provide a topic and outline to generate an initial draft.
-
-- **Sanitize Data Agent**
-  - **Function:** Removes Protected Health Information (PHI) from medical data.
-  - **Usage:** Input medical data containing PHI to receive sanitized data.
-
-### Validator Agents
-
-- **Summarize Validator Agent**
-  - **Function:** Validates the accuracy and quality of summaries generated by the Summarize Agent.
-  - **Usage:** Receives the original text and its summary to assess quality.
-
-- **Refiner Agent**
-  - **Function:** Enhances and refines drafts generated by the Write Article Agent for better clarity, coherence, and academic quality.
-  - **Usage:** Receives a draft article and returns an enhanced version.
-
-- **Sanitize Validator Agent**
-  - **Function:** Ensures that all PHI has been successfully removed from the sanitized data.
-  - **Usage:** Receives original and sanitized data to verify PHI removal.
+---
 
 ## Logging
 
-- **Location:** Logs are stored in the `logs/` directory.
-- **Files:**
-  - `multi_agent_system.log`: Contains detailed logs for monitoring and debugging.
-- **Configuration:** Logging is handled using the `loguru` library, configured in `utils/logger.py`.
+- Logs are stored in the `logs/` directory.
+- Logging is handled via Loguru for easy debugging and monitoring.
 
+---
+
+## Customization
+
+- **Add new agents:**  
+  Create a new agent class in the `agents/` directory and register it in the agent manager.
+- **Change LLM model:**  
+  Update the model used in the Ollama API calls in `agent_base.py`.
+- **Modify prompts:**  
+  Edit the prompt templates in each agent for different behaviors or domains.
+
+---
+
+## Contributing
+
+Contributions are welcome! Please open issues or submit pull requests for improvements or new features.
+
+---
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the MIT License.
 
-## Acknowledgements
-
-- [Ollama](https://ollama.com/) for providing the platform to run LLaMA models locally.
-- [LLaMA](https://ai.facebook.com/products/llama/) by Meta for the powerful open-source language model.
-- [Streamlit](https://streamlit.io/) for the web application framework.
-- [Loguru](https://github.com/Delgan/loguru) for the logging library.
-- Inspired by collaborative multi-agent system architectures and prompt engineering techniques like Chain-of-Thought (CoT) and ReAct.
+---

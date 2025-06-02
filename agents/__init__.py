@@ -6,8 +6,8 @@ from .sanitize_data_tool import SanitizeDataTool
 from .summarize_validator_agent import SummarizeValidatorAgent
 from .write_article_validator_agent import WriteArticleValidatorAgent
 from .sanitize_data_validator_agent import SanitizeDataValidatorAgent
-from .refiner_agent import RefinerAgent # New import
-from .validator_agent import ValidatorAgent  # New import
+from .refiner_agent import RefinerAgent
+from .validator_agent import ValidatorAgent
 
 class AgentManager:
     def __init__(self, max_retries=2, verbose=True):
@@ -18,8 +18,8 @@ class AgentManager:
             "summarize_validator": SummarizeValidatorAgent(max_retries=max_retries, verbose=verbose),
             "write_article_validator": WriteArticleValidatorAgent(max_retries=max_retries, verbose=verbose),
             "sanitize_data_validator": SanitizeDataValidatorAgent(max_retries=max_retries, verbose=verbose),
-            "refiner": RefinerAgent(max_retries=max_retries, verbose=verbose),      # New agent
-            "validator": ValidatorAgent(max_retries=max_retries, verbose=verbose)   # New agent
+            "refiner": RefinerAgent(max_retries=max_retries, verbose=verbose),  
+            "validator": ValidatorAgent(max_retries=max_retries, verbose=verbose)
         }
 
     def get_agent(self, agent_name):

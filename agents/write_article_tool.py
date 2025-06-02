@@ -1,5 +1,3 @@
-# agents/write_article_agent.py
-
 from .agent_base import AgentBase
 
 class WriteArticleTool(AgentBase):

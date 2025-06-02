@@ -1,5 +1,3 @@
-# agents/validator_agent.py
-
 from .agent_base import AgentBase
 
 class ValidatorAgent(AgentBase):
